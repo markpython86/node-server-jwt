@@ -15,6 +15,7 @@ const app = express();
 
 const whitelist = [
   'http://localhost:3000',
+  '*'
 ];
 const options = {
   origin(origin, callback) {
