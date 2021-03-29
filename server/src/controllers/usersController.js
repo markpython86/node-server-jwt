@@ -55,7 +55,7 @@ module.exports = {
           error: 'The login information was incorrect'
         });
       }
-
+      // @return true, false
       const isPasswordValid = await user.verifyPassword(password);
       if (!isPasswordValid) {
         return res.status(403).send({

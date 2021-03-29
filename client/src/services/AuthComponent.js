@@ -9,6 +9,7 @@ function AuthComponent(props) {
     if (jwt === '' || !jwt) {
       history.push('/')
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
