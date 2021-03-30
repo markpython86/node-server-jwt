@@ -28,7 +28,7 @@ module.exports = {
       stack: process.env.NODE_ENV === 'production' ? '🥞' : err.stack
     });
   },
-  register: (req, res, next) => {
+  signup: (req, res, next) => {
     const schema = Joi.object({
       username: Joi.string().required(),
       email: Joi.string().email(),

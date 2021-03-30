@@ -50,7 +50,7 @@ app.get('/', (req, res) => {
 app.use('/api/v1', api);
 app.use(middlewares.notFound);
 app.use(middlewares.errorHandler);
-app.use(middlewares.register);
+app.use(middlewares.signup);
 app.use(middlewares.isAuthenticated);
 
 

@@ -1,5 +1,4 @@
-import React, { useState, useContext } from 'react';
-import { MainContext } from '../contexts/MainContext';
+import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import AuthService from "../services/auth.service";
 import Avatar from '@material-ui/core/Avatar';
@@ -11,7 +10,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -50,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3, 0, 2),
   },
 }));
-function Login(props) {
+function Signup(props) {
   const classes = useStyles();
   const [email, changeEmail] = useState('mark11@mark.com');
   const [password, changePassword] = useState('QWE12eqwe123');
@@ -58,41 +57,27 @@ function Login(props) {
   const [showAlert, changeShowAlert] = useState(false);
   const [alertText, changeAlertText] = useState('');
   const loading = (time) => new Promise((resolve) => setTimeout(resolve, time));
-  // const [isDisabled, changeDisabled] = useState(true);
-  const { setJwt } = useContext(MainContext);
   const history = useHistory();
 
-  // function toggleDisabled() {
-  //   if (email !== '' && password !== '') {
-  //     changeDisabled(false);
-  //   } else {
-  //     changeDisabled(false);
-  //   }
-  // }
   async function alertToggle(msg) {
     changeAlertText(msg)
     changeShowAlert(true)
-    console.log('showAlert :>> ', showAlert);
+    // console.log('showAlert :>> ', showAlert);
     await loading(3000)
     changeShowAlert(false)
-    console.log('showAlert :>> ', showAlert);
+    // console.log('showAlert :>> ', showAlert);
   }
+  // validation ?
   function handleChange(event) {
     switch (event.target.name) {
       case 'email':
-        console.log('event.target.value', event.target.value)
         changeEmail(event.target.value);
-        // toggleDisabled();
         break;
       case 'password':
-        console.log('event.target.value', event.target.value)
         changePassword(event.target.value);
-        // toggleDisabled();
         break;
       case 'username':
-        console.log('event.target.value', event.target.value)
         changeUsername(event.target.value);
-        // toggleDisabled();
         break;
       default:
         break;
@@ -108,17 +93,16 @@ function Login(props) {
     }
     console.log('user', user)
     try {
-      const response = await AuthService.login({
+      await AuthService.signup({
         username: username,
         email: email,
         password: password
       })
-      localStorage.setItem('token', response.data.token)
-      setJwt(response.data.token)
-      history.push('/home');
+      // localStorage.setItem('token', response.data.token)
+      // setJwt(response.data.token)
+      history.push('/');
     } catch (error) {
       alertToggle(error.response.data.error)
-      console.log('error.response.data.error :>> ', error.response.data.error);
     }
   }
   // useEffect(() => {
@@ -133,10 +117,10 @@ function Login(props) {
         <CssBaseline />
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
+            <PersonAddIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Sign Up
       </Typography>
           <form className={classes.form} noValidate onSubmit={handleSubmit}>
             <TextField
@@ -208,8 +192,8 @@ function Login(props) {
             </Link>
               </Grid>
               <Grid item>
-                <Link href="/signup" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                <Link href="/" variant="body2">
+                  {"You have an account? Sign In"}
                 </Link>
               </Grid>
             </Grid>
@@ -224,4 +208,4 @@ function Login(props) {
 
 }
 
-export default Login;
+export default Signup;

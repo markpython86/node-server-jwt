@@ -5,6 +5,7 @@ import Dash from './pages/Dash'
 import AuthComponent from './services/AuthComponent'
 import { MainContextProvider } from "./contexts/MainContext";
 import { BrowserRouter as Router } from 'react-router-dom';
+import Signup from './pages/Signup';
 
 const App = () => {
   return (
@@ -14,6 +15,9 @@ const App = () => {
           <Switch>
             <Route exact path='/'>
               <Login />
+            </Route>
+            <Route exact path='/signup'>
+              <Signup />
             </Route>
             <Route path='/home'>
               <AuthComponent>

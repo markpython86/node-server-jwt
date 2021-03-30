@@ -19,10 +19,11 @@ module.exports = {
     }
     return res.json(user);
   },
-  async register(req, res) {
+  async signup(req, res) {
     try {
       const user = await User.create(req.body);
       const userJson = user.toJSON();
+      // TODO: replace with a success message instead of token
       return res.send({
         user: userJson,
         token: jwtSignUser(userJson)
@@ -52,14 +53,14 @@ module.exports = {
 
       if (!user) {
         return res.status(403).send({
-          error: 'The login information was incorrect'
+          error: 'The login information was incorrect1'
         });
       }
       // @return true, false
       const isPasswordValid = await user.verifyPassword(password);
       if (!isPasswordValid) {
         return res.status(403).send({
-          error: 'The login information was incorrect'
+          error: 'The login information was incorrect2'
         });
       }
 

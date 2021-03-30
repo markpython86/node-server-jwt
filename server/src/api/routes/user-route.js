@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 });
 
 // Matches with "/api/v1/user/signup"
-router.post('/signup', middleware.register, userController.register);
+router.post('/signup', middleware.signup, userController.signup);
 
 // Matches with "/api/v1/user/login"
 router.post('/login',

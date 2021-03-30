@@ -13,6 +13,7 @@ passport.use(
     try {
       const user = await User.findById(jwtPayload._id);
       if (!user) {
+
         return done(new Error(), false);
       }
       return done(null, user);
