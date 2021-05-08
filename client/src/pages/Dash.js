@@ -19,21 +19,22 @@ const useStyles = makeStyles((theme) => ({
 
 const Dash = () => {
   const classes = useStyles();
-  const { jwt } = useContext(MainContext);
+  const { jwt, setJwt } = useContext(MainContext);
   const [parsedJwt, updateParsedJwt] = useState('')
   const history = useHistory();
 
   const logout = () => {
     AuthService.logout()
-    history.push('/');
+    setJwt('')
+    return history.push('/');
   }
   useEffect(() => {
     try {
-      updateParsedJwt(JSON.parse(atob(jwt.split('.')[1])))
+      return updateParsedJwt(JSON.parse(atob(jwt.split('.')[1])))
     } catch (err) {
-      updateParsedJwt('Not a valid JWT found')
+      return history.push('/')
     }
-  }, [jwt]);
+  }, [jwt, history]);
 
   return (
     <div>

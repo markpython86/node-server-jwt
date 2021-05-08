@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { MainContext } from '../contexts/MainContext.js'
 import AuthService from "../services/auth.service";
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -58,6 +59,7 @@ function Signup(props) {
   const [alertText, changeAlertText] = useState('');
   const loading = (time) => new Promise((resolve) => setTimeout(resolve, time));
   const history = useHistory();
+  const { jwt } = useContext(MainContext);
 
   async function alertToggle(msg) {
     changeAlertText(msg)
@@ -98,21 +100,21 @@ function Signup(props) {
         email: email,
         password: password
       })
-      // localStorage.setItem('token', response.data.token)
-      // setJwt(response.data.token)
-      history.push('/');
+      return history.push('/');
     } catch (error) {
       alertToggle(error.response.data.error)
     }
   }
-  // useEffect(() => {
 
-  // }, [])
-
+  useEffect(() => {
+    console.log(`hello`, jwt)
+    if (jwt) {
+      return history.push('/home')
+    }
+  }, [])
 
   return (
     <>
-
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <div className={classes.paper}>

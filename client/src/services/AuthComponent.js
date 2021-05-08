@@ -6,10 +6,10 @@ function AuthComponent(props) {
   const { jwt } = useContext(MainContext);
   const history = useHistory();
   useEffect(() => {
+    console.log(`jwt`, jwt)
     if (jwt === '' || !jwt) {
-      history.push('/')
+      return history.push('/')
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

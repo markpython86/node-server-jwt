@@ -8,7 +8,6 @@ require('dotenv').config();
 const mongoose = require('mongoose');
 const { db } = require('./config/config');
 const middlewares = require('./middlewares');
-// const isAuthenticated = require('./middlewares/isAuthenticated');
 const api = require('./api');
 
 const app = express();
@@ -52,13 +51,5 @@ app.use(middlewares.notFound);
 app.use(middlewares.errorHandler);
 app.use(middlewares.signup);
 app.use(middlewares.isAuthenticated);
-
-
-// const PORT = process.env.PORT || 3001;
-// app.listen(PORT, () => {
-//   /* eslint-disable no-console */
-//   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
-//   /* eslint-enable no-console */
-// });
 
 module.exports = app;

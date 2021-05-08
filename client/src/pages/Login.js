@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { MainContext } from '../contexts/MainContext';
 import { useHistory } from 'react-router-dom';
 import AuthService from "../services/auth.service";
@@ -59,7 +59,7 @@ function Login(props) {
   const [alertText, changeAlertText] = useState('');
   const loading = (time) => new Promise((resolve) => setTimeout(resolve, time));
   // const [isDisabled, changeDisabled] = useState(true);
-  const { setJwt } = useContext(MainContext);
+  const { jwt, setJwt } = useContext(MainContext);
   const history = useHistory();
 
   // function toggleDisabled() {
@@ -121,11 +121,12 @@ function Login(props) {
       console.log('error.response.data.error :>> ', error.response.data.error);
     }
   }
-  // useEffect(() => {
 
-  // }, [])
-
-
+  useEffect(() => {
+    if (jwt !== '' && jwt) {
+      return history.push('/home')
+    }
+  }, [jwt, history])
   return (
     <>
 
